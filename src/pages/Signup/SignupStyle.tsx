@@ -1,6 +1,7 @@
+import { Title } from '../../components/Title/Title';
 import { styled } from '../../styles/theme';
 
-export const LoginContainer = styled.article`
+export const SignupContainer = styled.article`
   width: 70vw;
   height: 100vh;
   display: flex;
@@ -8,12 +9,12 @@ export const LoginContainer = styled.article`
   align-items: center;
 `;
 
-export const LoginContent = styled.div`
+export const SignupContent = styled.div`
   width: 60%;
   max-width: 800px;
 `;
 
-export const LoginForm = styled.form`
+export const SignupForm = styled.form`
   margin: 64px 0;
 `;
 
@@ -36,13 +37,21 @@ export const TextLink = styled.span`
   }
 `;
 
-export const LoginWrapper = styled.section`
+export const SignupWrapper = styled.section`
   display: flex;
   width: 100vw;
   &.isMobile {
-    ${LoginContainer} {
+    ${SignupContainer} {
       width: 100vw;
       text-align: center;
+      padding: 32px 0;
+      overflow: auto;
+    }
+    ${Title}{
+      font-size: 25px;
+    }
+    ${SignupForm}{
+      margin: 32px 0;
     }
     ${HaveAccount} {
       width: 100%;
@@ -51,10 +60,7 @@ export const LoginWrapper = styled.section`
       top: unset;
       right: unset;
     }
-    ${LoginForm}{
-      margin: 32px 0;
-    }
-    ${LoginContent} {
+    ${SignupContent} {
       width: calc(100% - 4rem);
     }
   }

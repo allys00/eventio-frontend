@@ -14,9 +14,16 @@ interface IProps {
   value: string;
   onChange: (event: React.FormEvent<HTMLInputElement>) => void;
   type?: string;
+  noShowButton?: boolean;
 }
 
-function Input({ label, value, onChange, type }: IProps): JSX.Element {
+function Input({
+  label,
+  value,
+  onChange,
+  type,
+  noShowButton,
+}: IProps): JSX.Element {
   const [hasFocus, setHasFocus] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -41,7 +48,7 @@ function Input({ label, value, onChange, type }: IProps): JSX.Element {
         onBlur={() => setHasFocus(false)}
         type={inputType}
       />
-      {type === 'password' && (
+      {type === 'password' && !noShowButton &&(
         <EyeButton onClick={() => setShowPassword(!showPassword)}>
           <IconEye width={20} height={20} color={theme.color.ligth_grey} />
           {showPassword && <HidePassword />}
