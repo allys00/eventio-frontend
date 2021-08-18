@@ -2,7 +2,7 @@ import { styled } from '../../styles/theme';
 
 export const LoginContainer = styled.article`
   width: 70vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,14 +17,11 @@ export const LoginForm = styled.form`
   margin: 64px 0;
 `;
 
-export const HaveAccount = styled.div`
+export const HaveAccountText = styled.p`
+  color: ${({ theme }) => theme.color.ligth_grey};
   position: absolute;
   top: 10px;
   right: 20px;
-`;
-
-export const HaveAccountText = styled.p`
-  color: ${({ theme }) => theme.color.ligth_grey};
 `;
 
 export const TextLink = styled.span`
@@ -44,7 +41,7 @@ export const LoginWrapper = styled.section`
       width: 100vw;
       text-align: center;
     }
-    ${HaveAccount} {
+    ${HaveAccountText} {
       width: 100%;
       position: relative;
       text-align: center;

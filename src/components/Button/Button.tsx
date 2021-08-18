@@ -23,4 +23,9 @@ export const Button = styled.button<IProps>`
     transform: scale(1.02);
     cursor: pointer;
   }
+  &:disabled {
+    transform: unset;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 `;

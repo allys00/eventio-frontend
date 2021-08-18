@@ -16,7 +16,7 @@ export const InputContainer = styled.div`
 export const Label = styled.label<ILabelProps>`
   position: absolute;
   color: #c9ced3;
-  padding: 8px;
+  padding: 8px 0;
   top: 0;
   transition: all 0.3s;
   ${(props) =>
@@ -30,11 +30,15 @@ export const InputWrapper = styled.input`
   border: 0;
   border-bottom: 2px solid #dae1e7;
   outline: none;
-  padding: 8px;
+  padding: 8px 0;
   z-index: 1;
   background: transparent;
   color: ${({ theme }) => theme.color.primary};
   font-size: 18px;
+
+  &.hadError {
+    border-bottom-color: ${({ theme }) => theme.color.secondary_action};
+  }
 `;
 
 export const EyeButton = styled.div`
@@ -57,4 +61,10 @@ export const HidePassword = styled.span`
   transform: rotate(45deg);
   top: -2px;
   left: 9px;
+`;
+
+export const InputErrorMessage = styled.p`
+  color: ${({ theme }) => theme.color.secondary_action};
+  margin-bottom: 0;
+  text-align: left;
 `;

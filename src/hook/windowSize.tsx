@@ -8,22 +8,23 @@ export enum ENUMDevices {
 interface Size {
   width: number | undefined;
   height: number | undefined;
-  device: ENUMDevices;
+  device: ENUMDevices | string;
+}
+
+function getDeviceFromWidth() {
+  return window.innerWidth < 966 ? ENUMDevices.isMobile : ENUMDevices.isDesktop;
 }
 
 function useWindowSize(): Size {
   const [windowSize, setWindowSize] = useState<Size>({
-    device: ENUMDevices.isMobile,
+    device: getDeviceFromWidth(),
     width: undefined,
     height: undefined,
   });
   useEffect(() => {
     function handleResize() {
       setWindowSize({
-        device:
-          window.innerWidth < 966
-            ? ENUMDevices.isMobile
-            : ENUMDevices.isDesktop,
+        device: getDeviceFromWidth(),
         width: window.innerWidth,
         height: window.innerHeight,
       });

@@ -4,7 +4,7 @@ import Storage, { StorageKeys } from "../storage/Storage";
 const baseHeaders = async (othersHeaders: any) => {
     const userLogged = await Storage.get(StorageKeys.USER_LOGGED)
     const { accessToken } = JSON.parse(userLogged || '{}')
-    let headers: any = {
+    const headers: any = {
         'Content-type': 'application/json'
     }
     if(accessToken){

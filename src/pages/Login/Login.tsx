@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 import LeftBanner from '../../components/LeftBanner/LeftBanner';
 import { SubTitle } from '../../components/Subtitle/Subtitle';
 import { Title } from '../../components/Title/Title';
 import useWindowSize, { ENUMDevices } from '../../hook/windowSize';
+import { pages } from '../../utils/constants/pages';
 import {
-  HaveAccount,
   HaveAccountText,
   LoginContainer,
   LoginContent,
@@ -18,7 +19,12 @@ import {
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const history = useHistory();
   const { device } = useWindowSize();
+
+  function goToSignup() {
+    history.push(pages.SIGNUP);
+  }
 
   return (
     <LoginWrapper className={device}>
@@ -40,15 +46,12 @@ export default function Login(): JSX.Element {
               type={'password'}
             />
 
-            <HaveAccount>
-              <HaveAccountText>
-                Don&apos;t have account? <TextLink>SIGN UP</TextLink>
-              </HaveAccountText>
-            </HaveAccount>
+            <HaveAccountText>
+              Don&apos;t have account?{' '}
+              <TextLink onClick={goToSignup}>SIGN UP</TextLink>
+            </HaveAccountText>
           </LoginForm>
-          <Button colorType={'primary'}>
-            SIGN IN
-          </Button>
+          <Button colorType={'primary'}>SIGN IN</Button>
         </LoginContent>
       </LoginContainer>
     </LoginWrapper>
