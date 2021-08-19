@@ -22,8 +22,8 @@ interface IProps {
   hadError?: boolean;
   required?: boolean;
   externalError?: {
-    hasError: boolean;
-    errorMessage: string;
+    hasError?: boolean;
+    errorMessage?: string;
   };
   validationType?: 'email';
 }

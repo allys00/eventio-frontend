@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
@@ -26,6 +26,12 @@ export default function Login(): JSX.Element {
     loading: login.loading,
     credentials: login.credentials,
   }));
+
+  const [formValidInputs, setFormValidInputs] = useState({
+    email: false,
+    password: false
+  });
+
   const history = useHistory();
   const dispatch = useDispatch();
   const { device } = useWindowSize();
@@ -33,6 +39,13 @@ export default function Login(): JSX.Element {
   function goToSignup() {
     history.push(pages.SIGNUP);
   }
+
+  const formIsValid = useMemo(() => {
+    for (const item of Object.values(formValidInputs)) {
+      if (!item) return false;
+    }
+    return true;
+  }, [formValidInputs]);
 
   const handlerChangeCredentials = useCallback(
     ({ currentTarget }: React.FormEvent<HTMLInputElement>): void => {
@@ -47,6 +60,11 @@ export default function Login(): JSX.Element {
 
   function handlerLogin() {
     dispatch(doLogin(credentials));
+  }
+
+  function handleValidInput(isValid: boolean, key: string){
+    const newFormValidInputs = { ...formValidInputs, [key]: isValid };
+    setFormValidInputs(newFormValidInputs);
   }
 
   return (
@@ -67,15 +85,19 @@ export default function Login(): JSX.Element {
               value={credentials.email}
               id='email'
               onChange={handlerChangeCredentials}
-              type='email'
+              checkInputIsValid={handleValidInput}
+              validationType='email'
               required
+              externalError={{hasError: Boolean(loginError)}}
             />
             <Input
               label='Password'
               value={credentials.password}
               id='password'
               onChange={handlerChangeCredentials}
+              checkInputIsValid={handleValidInput}
               type={'password'}
+              externalError={{hasError: Boolean(loginError)}}
               required
             />
 
@@ -87,7 +109,7 @@ export default function Login(): JSX.Element {
           <Button
             colorType={'primary'}
             onClick={handlerLogin}
-            disabled={loading}
+            disabled={!formIsValid || loading}
           >
             {loading ? 'LOADING...' : 'SIGN IN'}
           </Button>

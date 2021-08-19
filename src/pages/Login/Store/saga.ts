@@ -13,7 +13,6 @@ export function* doLogin({ payload: credentials }: any) {
       AuthApi.login,
       credentials
     );
-    console.log(user)
     yield call(Storage.save, StorageKeys.ACCESS_TOKEN, accessToken);
     yield call(Storage.save, StorageKeys.REFRESH_TOKEN, refreshToken);
     yield call(Storage.save, StorageKeys.USER_LOGGED, user);
@@ -23,7 +22,9 @@ export function* doLogin({ payload: credentials }: any) {
   } catch (error) {
     if(error.error === 'User.InvalidPassword'){
       yield put(changeLoginError('Oops! That email and pasword combination is not valid.'))
+      return;
     }
+    yield put(changeLoginError('Oops something wrong happened, try again'))
   } finally {
     yield put(changeLoginLoading(false));
   }
