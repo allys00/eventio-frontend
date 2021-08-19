@@ -34,6 +34,7 @@ export default function Signup(): JSX.Element {
   const dispatch = useDispatch();
   const { device } = useWindowSize();
 
+
   const changeNewUserValue = useCallback(
     ({ currentTarget }: React.FormEvent<HTMLInputElement>): void => {
       dispatch(
@@ -143,9 +144,9 @@ export default function Signup(): JSX.Element {
           <Button
             colorType={'primary'}
             onClick={handleCreateUser}
-            disabled={!formIsValid}
+            disabled={!formIsValid || loading}
           >
-            SIGN UP
+            {loading ? 'LOADING...':'SIGN UP'}
           </Button>
         </SignupContent>
       </SignupContainer>

@@ -1,15 +1,16 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { all, call, delay, put, takeEvery } from 'redux-saga/effects';
 import { changeSignUpLoading, signupClearState } from './actions';
 import { SIGNUP_ACTIONS } from './reducer';
 import { pages } from '../../../utils/constants/pages';
 import { history } from '../../../config/Store/store.config';
+import AuthApi from '../../../services/auth/auth';
 
 export function* createNewUser({ payload: newUser }: any) {
   try {
     yield put(changeSignUpLoading(true));
-    // yield call(SignupApi.createUser, newUser);
+    yield delay(2000)
+    yield call(AuthApi.createUser, newUser);
     yield call(history.push, pages.LOGIN);
-    yield put(changeSignUpLoading(false));
     yield put(signupClearState());
   } catch (error) {
     console.error(error);

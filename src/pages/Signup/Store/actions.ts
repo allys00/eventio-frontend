@@ -2,7 +2,7 @@ import { IUserSignup, SIGNUP_ACTIONS } from './reducer';
 
 export const changeSignUpLoading = (loading: boolean) => ({
   type: SIGNUP_ACTIONS.CHANGE_LOADING,
-  payload: loading,
+  payload: { loading },
 });
 
 export const createNewUser = (newUser: IUserSignup) => ({

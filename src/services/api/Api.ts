@@ -1,33 +1,34 @@
-import Axios from "axios";
-import Storage, { StorageKeys } from "../storage/Storage";
+import { ENV } from '../../enviroment/enviroment';
+import Storage, { StorageKeys } from '../storage/Storage';
 
-const baseHeaders = async (othersHeaders: any) => {
-    const userLogged = await Storage.get(StorageKeys.USER_LOGGED)
-    const { accessToken } = JSON.parse(userLogged || '{}')
-    const headers: any = {
-        'Content-type': 'application/json'
-    }
-    if(accessToken){
-        headers.Authorization = `Bearer ${accessToken}`
-    }
+const baseHeaders = (othersHeaders: any) => {
+  const userLogged = Storage.get(StorageKeys.USER_LOGGED);
+  const { accessToken } = JSON.parse(userLogged || '{}');
+  const headers: any = {
+    'Content-type': 'application/json',
+    APIKey: ENV.API_KEY,
+  };
+  if (accessToken) {
+    headers.Authorization = `Bearer ${accessToken}`;
+  }
 
-    return { ...headers, ...othersHeaders }
-}
+  return { ...headers, ...othersHeaders };
+};
 
 export const Get = async (url: string, header: any) => {
-    const headers = await baseHeaders(header);
-    return Axios.get(url, { headers })
-        .then(data => data.data)
-        .catch(error => {
-            throw error
-        });
+  const headers =  baseHeaders(header);
+  return await fetch(url, {
+    method: 'GET',
+    headers,
+  });
 };
 
 export const Post = async (url: string, data: any, header?: any) => {
-    const headers = await baseHeaders(header);
-    return Axios.post(url, data, { headers })
-        .then(data => data.data)
-        .catch(error => {
-            throw error
-        });
+  const headers = baseHeaders(header);
+  return await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    body: JSON.stringify(data),
+    headers,
+  });
 };

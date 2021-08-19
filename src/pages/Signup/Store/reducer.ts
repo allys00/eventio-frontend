@@ -27,7 +27,7 @@ export default (
   const { type, payload } = action;
   switch (type) {
     case SIGNUP_ACTIONS.CHANGE_LOADING:
-      return { ...state, loading: payload as boolean };
+      return { ...state, loading: payload.loading as boolean };
 
     case SIGNUP_ACTIONS.CHANGE_USER:
       return {

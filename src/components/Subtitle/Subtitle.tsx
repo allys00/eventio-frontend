@@ -6,7 +6,7 @@ interface IProps {
 
 export const SubTitle = styled.h3<IProps>`
   font-size: ${({ fontSize }) => fontSize || 18}px;
-  color: ${({ theme }) => theme.color.dark_grey};
+  color: ${({ theme, color }) => color || theme.color.dark_grey};
   line-height: 24px;
   font-weight: 400;
   margin: 0;

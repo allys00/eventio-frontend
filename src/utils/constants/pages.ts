@@ -1,5 +1,5 @@
 export enum pages {
   LOGIN = '/login',
-  HOME = '/home',
+  DASHBOARD = '/dashboard',
   SIGNUP = '/signup'
 }

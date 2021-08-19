@@ -7,11 +7,11 @@ import { theme } from './styles/theme';
 
 function App(): JSX.Element {
   return (
-    <Provider store={Store}>
-      <ThemeProvider theme={theme}>
-        <MainRouter />
-      </ThemeProvider>
-    </Provider>
+      <Provider store={Store}>
+        <ThemeProvider theme={theme}>
+          <MainRouter />
+        </ThemeProvider>
+      </Provider>
   );
 }
 

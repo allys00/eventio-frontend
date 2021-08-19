@@ -45,6 +45,7 @@ export const EyeButton = styled.div`
   position: absolute;
   display: flex;
   right: 8px;
+  top: 15px;
   z-index: 2;
   &:hover {
     transform: scale(1.1);

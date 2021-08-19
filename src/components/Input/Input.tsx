@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { theme } from '../../styles/theme';
 import IconEye from '../Icon/IconEye';
 import {
@@ -83,13 +83,12 @@ function Input({
     return type || 'text';
   }, [type, showPassword]);
 
-  function handleBlur() {
+  const handleBlur = useCallback(() => {
     setHasFocus(false);
     if (!wasFocused) {
       setWasFocused(true);
     }
-  }
-
+  }, [wasFocused]);
   return (
     <InputContainer>
       <Label goToTop={goToTop}>{label}</Label>
