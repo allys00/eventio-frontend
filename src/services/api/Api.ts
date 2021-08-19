@@ -15,7 +15,7 @@ const baseHeaders = (othersHeaders: any) => {
   return { ...headers, ...othersHeaders };
 };
 
-export const Get = async (url: string, header: any) => {
+export const Get = async (url: string, header?: any) => {
   const headers =  baseHeaders(header);
   return await fetch(url, {
     method: 'GET',

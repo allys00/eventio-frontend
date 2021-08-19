@@ -14,5 +14,6 @@ export const Container = styled.section`
 
 export const Content = styled.section`
   max-width: 1200px;
-  margin: auto;
+  margin: 0 auto;
+  width: 100%;
 `;

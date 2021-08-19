@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
+export type ButtonTypes =  'primary' | 'secondary' | 'tertiary'
 interface IProps {
-  colorType: 'primary' | 'secondary' | 'tertiary';
+  colorType: ButtonTypes;
 }
 
 export const Button = styled.button<IProps>`

@@ -16,7 +16,7 @@ export function* doLogin({ payload: credentials }: any) {
     yield call(Storage.save, StorageKeys.ACCESS_TOKEN, accessToken);
     yield call(Storage.save, StorageKeys.REFRESH_TOKEN, refreshToken);
     yield call(Storage.save, StorageKeys.USER_LOGGED, user);
-    yield call(history.push, pages.DASHBOARD);
+    yield call(history.push, pages.EVENTS);
     yield put(loginClearState());
     yield put(changeUserLogged(user));
   } catch (error) {

@@ -1,9 +1,11 @@
-import { Button } from '../../../components/Button/Button';
-import { SubTitle } from '../../../components/Subtitle/Subtitle';
-import { styled } from '../../../styles/theme';
+import { Button } from '../../../../components/Button/Button';
+import { SubTitle } from '../../../../components/Subtitle/Subtitle';
+import { Title } from '../../../../components/Title/Title';
+import { styled } from '../../../../styles/theme';
 
 interface ICardProps {
   width: string;
+  isMobile: boolean;
 }
 
 export const Card = styled.div<ICardProps>`
@@ -11,12 +13,25 @@ export const Card = styled.div<ICardProps>`
   box-shadow: ${({ theme }) => theme.box_shadow};
   border-radius: 2px;
   padding: 32px;
+  height: 240px;
   width: ${({ width }) => width};
+  max-width: calc(100% - 64px);
   margin-bottom: 16px;
+
+  ${Title} {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   ${SubTitle} {
     font-size: 16px;
     margin: 20px 0;
-    width: 70%;
+    width: ${({ isMobile }) => (isMobile ? '100%' : '70%')};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+    -webkit-box-orient: vertical;
   }
 `;
 

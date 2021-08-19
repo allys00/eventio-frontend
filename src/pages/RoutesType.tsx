@@ -23,7 +23,7 @@ export const PublicRouter = ({ component: Component, ...rest }: any) => (
       !Storage.get(StorageKeys.ACCESS_TOKEN) ? (
         <Component {...props} />
       ) : (
-        <Redirect to={pages.DASHBOARD} />
+        <Redirect to={pages.EVENTS} />
       )
     }
   />
