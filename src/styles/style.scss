@@ -17,6 +17,18 @@ body {
 
 @font-face {
     font-family: Hind;
+    src: url('../assets/font/Hind/Hind-Regular.ttf');
+    font-style: 400;
+}
+
+@font-face {
+    font-family: Hind_Normal;
     src: url('../assets/font/Hind/Hind-Medium.ttf');
     font-style: normal;
+}
+
+@font-face {
+    font-family: Hind_Semi;
+    src: url('../assets/font/Hind/Hind-SemiBold.ttf');
+    font-style: 600;
 }

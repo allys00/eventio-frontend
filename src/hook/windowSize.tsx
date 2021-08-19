@@ -6,8 +6,8 @@ export enum ENUMDevices {
 }
 
 interface Size {
-  width: number | undefined;
-  height: number | undefined;
+  width: number;
+  height: number;
   device: ENUMDevices | string;
 }
 
@@ -18,8 +18,8 @@ function getDeviceFromWidth() {
 function useWindowSize(): Size {
   const [windowSize, setWindowSize] = useState<Size>({
     device: getDeviceFromWidth(),
-    width: undefined,
-    height: undefined,
+    width: window.innerWidth,
+    height: window.innerHeight,
   });
   useEffect(() => {
     function handleResize() {

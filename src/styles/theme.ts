@@ -1,6 +1,20 @@
 import baseStyled, { ThemedStyledInterface } from 'styled-components';
 
 export const theme = {
+  actions: {
+    primary: {
+      background: '#22D486',
+      contrast: '#fff',
+    },
+    secondary: {
+      background: '#FF4081',
+      contrast: '#fff',
+    }, 
+    tertiary: {
+      background: '#D9DCE1',
+      contrast: '#A9AEB4'
+    },
+  },
   color: {
     primary: '#323C46',
     secondary: '#D9DCE1',
@@ -8,11 +22,10 @@ export const theme = {
     dark_grey: '#949EA8',
     grey: '#A9AEB4',
     ligth_grey: '#CACDD0',
-    primary_action: '#22D486',
-    secondary_action: '#FF4081', 
     green: '#1BE38B',
     white: '#ffffff' 
   },
+  box_shadow: '0px 2px 3px rgba(0, 0, 0, 0.108696);'
 };
 
 export type Theme = typeof theme;

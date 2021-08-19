@@ -75,7 +75,7 @@ export default function Login(): JSX.Element {
           <Title fontSize={28}>Sign in to Eventio.</Title>
           {
             loginError ?
-            <SubTitle fontSize={18} color={theme.color.secondary_action}>{loginError}</SubTitle>:
+            <SubTitle fontSize={18} color={theme.actions.secondary.background}>{loginError}</SubTitle>:
             <SubTitle fontSize={18}>Enter your details below</SubTitle>
           }
 

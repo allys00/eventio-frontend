@@ -37,7 +37,7 @@ export const InputWrapper = styled.input`
   font-size: 18px;
 
   &.hadError {
-    border-bottom-color: ${({ theme }) => theme.color.secondary_action};
+    border-bottom-color: ${({ theme }) => theme.actions.secondary.background};
   }
 `;
 
@@ -65,7 +65,7 @@ export const HidePassword = styled.span`
 `;
 
 export const InputErrorMessage = styled.p`
-  color: ${({ theme }) => theme.color.secondary_action};
+  color: ${({ theme }) => theme.actions.secondary.background};
   margin-bottom: 0;
   text-align: left;
 `;
