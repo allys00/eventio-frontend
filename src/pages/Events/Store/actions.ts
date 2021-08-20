@@ -30,7 +30,7 @@ export const unAttendAnEvent = (eventId: string) => ({
   payload: eventId
 })
 
-export const changeLoadingEventAction = (loadingEventAction: '') => ({
+export const changeLoadingEventAction = (eventIdIsLoading: '') => ({
   type: EVENTS_ACTIONS.CHANGE_LOADING_EVENT_ACTION,
-  payload: { loadingEventAction }
+  payload: { eventIdIsLoading }
 })

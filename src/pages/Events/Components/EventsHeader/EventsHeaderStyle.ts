@@ -1,4 +1,5 @@
 import { styled } from '../../../../styles/theme';
+import { OptionsWrapper } from '../../../../components/Dropdown/DropdownStyle';
 
 export const EventsHeaderContainer = styled.div`
   display: flex;
@@ -30,7 +31,7 @@ export const EventsFilterItem = styled.p<{ isActive?: boolean }>`
 
 export const ListActions = styled.div`
   display: flex;
-`
+`;
 
 export const ActionItem = styled.span`
   display: flex;
@@ -41,4 +42,27 @@ export const ActionItem = styled.span`
     cursor: pointer;
     transform: scale(1.1);
   }
-`
+`;
+
+export const EventsFilterMobile = styled.p`
+  color: ${({ theme }) => theme.color.dark_grey};
+  margin: 0;
+  text-decoration: uppercase;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 1px;
+
+  ${OptionsWrapper} {
+    top: 20px;
+    width: 140px;
+    left: 0;
+    margin-left: 40px;
+  }
+`;
+
+export const FilterSelected = styled.p`
+  color: ${({ theme }) => theme.color.primary};
+  margin: 0 8px;
+  font-weight: bold;
+`;

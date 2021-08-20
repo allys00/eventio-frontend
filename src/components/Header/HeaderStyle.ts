@@ -38,27 +38,3 @@ export const UserName = styled.p`
   font-size: 16px;
   margin: 0 12px 0 4px;
 `;
-export const ProfileMenuOptions = styled.ul`
-  position: absolute;
-  top: 42px;
-  width: 100px;
-  right: 0;
-  background-color: ${({ theme }) => theme.color.white};
-  box-shadow: ${({ theme }) => theme.box_shadow};
-  margin: 0;
-  padding: 8px;
-  border-radius: 4px;
-  list-style: none;
-`;
-export const ProfileOption = styled.li`
-  padding: 8px;
-  color: ${({ theme }) => theme.color.primary};
-  border-bottom: 1px solid #dae1e7;
-  &:last-child {
-    border: none;
-  }
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-  }
-`;

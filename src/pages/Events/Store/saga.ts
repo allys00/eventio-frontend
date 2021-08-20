@@ -1,7 +1,12 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { all, call, put, select, takeEvery } from 'redux-saga/effects';
+import { IStore } from '../../../config/Store/mainReducer';
 import { IEvent } from '../../../models/event.model';
 import EventsApi from '../../../services/events/events';
-import { changeEvents, changeEventsLoading, changeLoadingEventAction } from './actions';
+import {
+  changeEvents,
+  changeEventsLoading,
+  changeLoadingEventAction,
+} from './actions';
 import { EVENTS_ACTIONS } from './reducer';
 
 export function* getAllEvents() {
@@ -16,11 +21,20 @@ export function* getAllEvents() {
   }
 }
 
-export function* attendAnEvent({ payload: eventId }: any) { 
+export function* replaceEvent(event: IEvent) {
+  const events: IEvent[] = yield select(({ events }: IStore) => events.events);
+  const index = events.findIndex(({ id }) => id === event.id);
+  events[index] = event;
+  return [...events];
+}
+
+export function* attendAnEvent({ payload: eventId }: any) {
   try {
     yield put(changeLoadingEventAction(eventId));
     const event: IEvent = yield call(EventsApi.attendAnEvent, eventId);
-    console.log('oi')
+    const newEvents: IEvent[] = yield call(replaceEvent, event);
+    yield put(changeEvents(newEvents));
+    console.log('oi');
   } catch (error) {
     console.error(error);
   } finally {
@@ -28,12 +42,12 @@ export function* attendAnEvent({ payload: eventId }: any) {
   }
 }
 
-export function* unAttendAnEvent({ payload: eventId }: any) { 
+export function* unAttendAnEvent({ payload: eventId }: any) {
   try {
     yield put(changeLoadingEventAction(eventId));
     const event: IEvent = yield call(EventsApi.unAttendAnEvent, eventId);
-
-    console.log('oi2')
+    const newEvents: IEvent[] = yield call(replaceEvent, event);
+    yield put(changeEvents(newEvents));
   } catch (error) {
     console.error(error);
   } finally {

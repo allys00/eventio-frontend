@@ -14,8 +14,8 @@ export enum EVENTS_ACTIONS {
 
 const INITIAL_STATE = {
   loading: false,
-  loadingEventAction: '',
-  filterType: 'all' as ENUMFilterType,
+  eventIdIsLoading: '',
+  filterType: ENUMFilterType.ALL as ENUMFilterType,
   events: [] as IEvent[],
 };
 
@@ -37,7 +37,7 @@ export default (
       return { ...state, filterType: payload.filterType };
 
     case EVENTS_ACTIONS.CHANGE_LOADING_EVENT_ACTION:
-      return { ...state, loadingEventAction: payload.loadingEventAction };
+      return { ...state, eventIdIsLoading: payload.eventIdIsLoading };
 
     default:
       return state;
