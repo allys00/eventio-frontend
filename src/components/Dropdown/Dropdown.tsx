@@ -27,7 +27,6 @@ function Dropdown({ options, children, hideIcon, iconColor}: IProps) {
   const hideMenu = useCallback(() => {
     setMenuIsOpen(false);
   }, []);
-  console.log(menuIsOpen)
   return (
     <DropdownWrapper onMouseEnter={showMenu} onMouseLeave={hideMenu}>
       {children}{' '}

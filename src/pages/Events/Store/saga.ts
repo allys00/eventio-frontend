@@ -34,7 +34,6 @@ export function* attendAnEvent({ payload: eventId }: any) {
     const event: IEvent = yield call(EventsApi.attendAnEvent, eventId);
     const newEvents: IEvent[] = yield call(replaceEvent, event);
     yield put(changeEvents(newEvents));
-    console.log('oi');
   } catch (error) {
     console.error(error);
   } finally {

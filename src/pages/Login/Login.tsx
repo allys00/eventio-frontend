@@ -1,8 +1,9 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
+import { inputsValidations } from '../../components/Input/InputsValidation';
 import LeftBanner from '../../components/LeftBanner/LeftBanner';
 import { SubTitle } from '../../components/Subtitle/Subtitle';
 import { Title } from '../../components/Title/Title';
@@ -21,15 +22,17 @@ import {
 import { changeCredentials, doLogin } from './Store/actions';
 
 export default function Login(): JSX.Element {
-  const { loading, credentials, loginError } = useSelector(({ login }: IStore) => ({
-    loginError: login.loginError,
-    loading: login.loading,
-    credentials: login.credentials,
-  }));
+  const { loading, credentials, loginError } = useSelector(
+    ({ login }: IStore) => ({
+      loginError: login.loginError,
+      loading: login.loading,
+      credentials: login.credentials,
+    })
+  );
 
   const [formValidInputs, setFormValidInputs] = useState({
     email: false,
-    password: false
+    password: false,
   });
 
   const history = useHistory();
@@ -39,13 +42,6 @@ export default function Login(): JSX.Element {
   function goToSignup() {
     history.push(pages.SIGNUP);
   }
-
-  const formIsValid = useMemo(() => {
-    for (const item of Object.values(formValidInputs)) {
-      if (!item) return false;
-    }
-    return true;
-  }, [formValidInputs]);
 
   const handlerChangeCredentials = useCallback(
     ({ currentTarget }: React.FormEvent<HTMLInputElement>): void => {
@@ -62,7 +58,7 @@ export default function Login(): JSX.Element {
     dispatch(doLogin(credentials));
   }
 
-  function handleValidInput(isValid: boolean, key: string){
+  function handleValidInput(isValid: boolean, key: string) {
     const newFormValidInputs = { ...formValidInputs, [key]: isValid };
     setFormValidInputs(newFormValidInputs);
   }
@@ -73,11 +69,13 @@ export default function Login(): JSX.Element {
       <LoginContainer>
         <LoginContent>
           <Title fontSize={28}>Sign in to Eventio.</Title>
-          {
-            loginError ?
-            <SubTitle fontSize={18} color={theme.actions.secondary.background}>{loginError}</SubTitle>:
+          {loginError ? (
+            <SubTitle fontSize={18} color={theme.actions.secondary.background}>
+              {loginError}
+            </SubTitle>
+          ) : (
             <SubTitle fontSize={18}>Enter your details below</SubTitle>
-          }
+          )}
 
           <LoginForm>
             <Input
@@ -88,16 +86,15 @@ export default function Login(): JSX.Element {
               checkInputIsValid={handleValidInput}
               validationType='email'
               required
-              externalError={{hasError: Boolean(loginError)}}
+              externalError={{ hasError: Boolean(loginError) }}
             />
             <Input
               label='Password'
               value={credentials.password}
               id='password'
               onChange={handlerChangeCredentials}
-              checkInputIsValid={handleValidInput}
               type={'password'}
-              externalError={{hasError: Boolean(loginError)}}
+              externalError={{ hasError: Boolean(loginError) }}
               required
             />
 
@@ -109,7 +106,9 @@ export default function Login(): JSX.Element {
           <Button
             colorType={'primary'}
             onClick={handlerLogin}
-            disabled={!formIsValid || loading}
+            disabled={
+              !inputsValidations.email || loading || Boolean(!credentials.password)
+            }
           >
             {loading ? 'LOADING...' : 'SIGN IN'}
           </Button>

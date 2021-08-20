@@ -1,7 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IStore } from '../../config/Store/mainReducer';
 import useWindowSize, { ENUMDevices } from '../../hook/windowSize';
+import { doLogout } from '../../pages/Login/Store/actions';
 import { theme } from '../../styles/theme';
 import Dropdown from '../Dropdown/Dropdown';
 import IconLogo from '../Icon/IconLogo';
@@ -18,15 +19,15 @@ function Header() {
     lastName: login.userLogged.lastName,
   }));
   const { device } = useWindowSize();
-
+  const dispatch = useDispatch();
   return (
     <HeaderContainer>
       <IconLogo width={30} height={30} color={theme.color.primary} />
 
       <Dropdown
         options={[
-          { label: 'My Profile', onClick: console.log },
-          { label: 'Logout', onClick: console.log },
+          { label: 'My Profile', onClick: () => console.log('MyProfile') },
+          { label: 'Logout', onClick: () => dispatch(doLogout()) },
         ]}
       >
         <ProfileMenu>

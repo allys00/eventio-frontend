@@ -29,6 +29,13 @@ const Storage = {
       console.log(`Error to remove ${key} from storage`);
     }
   },
+  clear: () => {
+    try {
+      localStorage.clear();
+    } catch (e) {
+      console.log(`Error to clear storage`);
+    }
+  }
 };
 
 export default Storage;

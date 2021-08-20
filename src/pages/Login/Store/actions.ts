@@ -20,6 +20,10 @@ export const doLogin = (credentials: ILoginCredentials) => ({
   payload: credentials,
 });
 
+export const doLogout = () => ({
+  type: LOGIN_ACTIONS.ASYNC_LOGOUT,
+});
+
 export const changeLoginError = (loginError: string) => ({
   type: LOGIN_ACTIONS.CHANGE_LOGIN_ERROR,
   payload: { loginError },
