@@ -44,7 +44,6 @@ function Events() {
   function handlerChangeFilter(filter: ENUMFilterType) {
     dispatch(changeEventsFilter(filter));
   }
-  console.log(filterType);
   if (loading) return <h2>Loading...</h2>;
   return (
     <Container>
@@ -57,6 +56,7 @@ function Events() {
         <EventList>
           {eventsToShow.map((event) => (
             <EventCard
+              id={event.id}
               key={event.id}
               startsAt={event.startsAt}
               title={event.title}

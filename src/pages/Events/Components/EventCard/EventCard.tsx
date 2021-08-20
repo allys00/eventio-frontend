@@ -14,8 +14,11 @@ import {
   FooterCard,
   QtdAttendes,
 } from './EventCardStyle';
+import { useDispatch } from 'react-redux';
+import { attendAnEvent, unAttendAnEvent } from '../../Store/actions';
 
 interface IProps {
+  id: string;
   title: string;
   startsAt: string;
   ownerName: string;
@@ -27,6 +30,7 @@ interface IProps {
 }
 
 function EventCard({
+  id,
   title,
   startsAt,
   ownerName,
@@ -37,6 +41,7 @@ function EventCard({
   userIsAttendee,
 }: IProps) {
   const { width, device } = useWindowSize();
+  const dispatch = useDispatch()
 
   const sizeCard = useMemo(() => {
     if (width > 1000) return 'calc(33.3% - 80px)';
@@ -44,21 +49,32 @@ function EventCard({
     else return '100%';
   }, [width]);
 
-  const { label, style } = useMemo(() => {
+  function handleAttendAnEvent(){
+    dispatch(attendAnEvent(id))
+  }
+
+  function handleUnAttendAnEvent(){
+    console.log('oiiii')
+    dispatch(unAttendAnEvent(id))
+  }
+
+  const { label, style, onClick } = useMemo(() => {
     if (userIsOwner)
       return {
         label: 'EDIT',
-        style: 'tertiary',
+        style: 'tertiary'
       };
 
     return userIsAttendee
       ? {
           label: 'LEAVE',
           style: 'secondary',
+          onClick: handleUnAttendAnEvent
         }
       : {
           label: 'JOIN',
           style: 'primary',
+          onClick: handleAttendAnEvent
         };
   }, [status]);
 
@@ -79,7 +95,7 @@ function EventCard({
         <Button
           colorType={style as ButtonTypes}
           disabled={capacity === attendeesQtd && !userIsAttendee}
-          onClick={console.log}
+          onClick={onClick}
         >
           {label}
         </Button>
