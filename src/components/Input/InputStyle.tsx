@@ -36,6 +36,10 @@ export const InputWrapper = styled.input`
   color: ${({ theme }) => theme.color.primary};
   font-size: 18px;
 
+  &::placeholder {
+    color: #c9ced3;
+  }
+
   &.hadError {
     border-bottom-color: ${({ theme }) => theme.actions.secondary.background};
   }

@@ -9,6 +9,7 @@ import Events from './Events/Events';
 import Storage, { StorageKeys } from '../services/storage/Storage';
 import { useDispatch } from 'react-redux';
 import { changeUserLogged } from './Login/Store/actions';
+import EditEvent from './EditEvent/EditEvent';
 
 export default function MainRouter(): JSX.Element {
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ export default function MainRouter(): JSX.Element {
         <PublicRouter path={pages.LOGIN} component={Login}/>
         <PublicRouter path={pages.SIGNUP} component={Signup} />
         <ProtectRouter path={pages.EVENTS} component={Events} />
+        <ProtectRouter path={pages.NEW_EVENT} component={EditEvent} />
         <Redirect to={pages.EVENTS} />
       </Switch>
     </Router>

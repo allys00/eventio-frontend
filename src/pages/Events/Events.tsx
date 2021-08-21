@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container, Content } from '../../components/Container/Container';
 import Header from '../../components/Header/Header';
@@ -10,6 +10,14 @@ import EventsHeader, {
 } from './Components/EventsHeader/EventsHeader';
 import { changeEventsFilter, getAllEvents } from './Store/actions';
 import dayjs from 'dayjs';
+import FloatButton from '../../components/FloatButton/FloatButton';
+import IconPlus from '../../components/Icon/IconPlus';
+import { theme } from '../../styles/theme';
+import { useHistory } from 'react-router-dom';
+import { pages } from '../../utils/constants/pages';
+import EditEvent from '../EditEvent/EditEvent';
+import Modal from '../../components/Modal/Modal';
+
 function Events() {
   const { events, userId, loading, filterType, eventIdIsLoading } = useSelector(
     ({ events, login }: IStore) => ({
@@ -23,9 +31,14 @@ function Events() {
 
   const [inlineMode, setInlineMode] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getAllEvents());
+  }, []);
+
+  const goToNewEvent = useCallback(() => {
+    history.push(pages.NEW_EVENT);
   }, []);
 
   function changeInlineMode(value: boolean) {
@@ -84,6 +97,18 @@ function Events() {
           </EventList>
         )}
       </Content>
+      <FloatButton
+        onClick={goToNewEvent}
+        position='right-bottom'
+        background={theme.color.primary}
+        icon={() => (
+          <IconPlus width={15} height={15} color={theme.color.white} />
+        )}
+      />
+
+      <Modal>
+        <EditEvent />
+      </Modal>
     </Container>
   );
 }

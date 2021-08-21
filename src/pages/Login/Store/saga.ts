@@ -9,13 +9,12 @@ import { IUserLogged, LOGIN_ACTIONS } from './reducer';
 import { pages } from '../../../utils/constants/pages';
 import { history } from '../../../config/Store/store.config';
 import AuthApi from '../../../services/auth/auth';
-import Storage, { StorageKeys } from '../../../services/storage/Storage';
+import Storage  from '../../../services/storage/Storage';
 
 export function* doLogin({ payload: credentials }: any) {
   try {
     yield put(changeLoginLoading(true));
     const user: IUserLogged = yield call(AuthApi.login, credentials);
-    yield call(Storage.save, StorageKeys.USER_LOGGED, user);
     yield call(history.push, pages.EVENTS);
     yield put(loginClearState());
     yield put(changeUserLogged(user));

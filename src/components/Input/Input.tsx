@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { theme } from '../../styles/theme';
+import DatePicker from '../DatePicker/DatePicker';
 import IconEye from '../Icon/IconEye';
+import TimePicker from '../TimePicker/TimePicker';
 import {
   Label,
   InputWrapper,
@@ -11,11 +13,16 @@ import {
 } from './InputStyle';
 import { inputsValidations } from './InputsValidation';
 
+export interface IInputChange {
+  id: string;
+  value: any;
+}
+
 interface IProps {
-  label: string;
+  label?: string;
   value: string;
   id?: string;
-  onChange?: (event: React.FormEvent<HTMLInputElement>) => void;
+  onChange: (event: IInputChange) => void;
   checkInputIsValid?: (isValid: boolean, id: string) => void;
   type?: string;
   noShowButton?: boolean;
@@ -26,6 +33,7 @@ interface IProps {
     errorMessage?: string;
   };
   validationType?: 'email';
+  placeholder?: string;
 }
 
 function Input({
@@ -38,6 +46,7 @@ function Input({
   required,
   externalError,
   id,
+  placeholder,
   validationType,
 }: IProps): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
@@ -48,7 +57,9 @@ function Input({
     if (required && !value) {
       return {
         hasError: true,
-        errorMessage: `${label || 'This field'} has to be filled up`,
+        errorMessage: `${
+          label || placeholder || 'This field'
+        } has to be filled up`,
       };
     }
     if (validationType && inputsValidations[validationType] && value) {
@@ -89,20 +100,52 @@ function Input({
       setWasFocused(true);
     }
   }, [wasFocused]);
+
   return (
     <InputContainer>
-      <Label goToTop={goToTop}>{label}</Label>
-      <InputWrapper
-        id={id}
-        value={value}
-        onChange={onChange}
-        onBlur={handleBlur}
-        onFocus={() => setHasFocus(true)}
-        type={inputType}
-        className={`${
-          (hasError && wasFocused) || externalError?.hasError ? 'hadError' : ''
-        }`}
-      />
+      {label && <Label goToTop={goToTop}>{label}</Label>}
+
+      {type === 'date' && (
+        <DatePicker
+          placeholder={placeholder}
+          value={value}
+          onChange={(value) =>
+            onChange({
+              id: id || '',
+              value,
+            })
+          }
+          onBlur={handleBlur}
+          onFocus={() => setHasFocus(true)}
+          className={`${
+            (hasError && wasFocused) || externalError?.hasError
+              ? 'hadError'
+              : ''
+          }`}
+        />
+      )}
+      {type === 'time' && <TimePicker placeholder={placeholder} />}
+      {type !== 'date' && type !== 'time' && (
+        <InputWrapper
+          id={id}
+          value={value}
+          placeholder={placeholder}
+          onChange={({ currentTarget }) =>
+            onChange({
+              id: currentTarget.id,
+              value: currentTarget.value,
+            })
+          }
+          onBlur={handleBlur}
+          onFocus={() => setHasFocus(true)}
+          type={inputType}
+          className={`${
+            (hasError && wasFocused) || externalError?.hasError
+              ? 'hadError'
+              : ''
+          }`}
+        />
+      )}
 
       {type === 'password' && !noShowButton && (
         <EyeButton onClick={() => setShowPassword(!showPassword)}>

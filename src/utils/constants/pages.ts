@@ -1,5 +1,6 @@
 export enum pages {
   LOGIN = '/login',
   EVENTS = '/events',
-  SIGNUP = '/signup'
+  SIGNUP = '/signup',
+  NEW_EVENT = '/new-event'
 }

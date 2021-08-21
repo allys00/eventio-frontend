@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
-import Input from '../../components/Input/Input';
+import Input, { IInputChange } from '../../components/Input/Input';
 import { inputsValidations } from '../../components/Input/InputsValidation';
 import LeftBanner from '../../components/LeftBanner/LeftBanner';
 import { SubTitle } from '../../components/Subtitle/Subtitle';
@@ -44,10 +44,10 @@ export default function Login(): JSX.Element {
   }
 
   const handlerChangeCredentials = useCallback(
-    ({ currentTarget }: React.FormEvent<HTMLInputElement>): void => {
+    ({ id, value }: IInputChange): void => {
       dispatch(
         changeCredentials({
-          [currentTarget.id]: currentTarget.value,
+          [id]: value,
         })
       );
     },
@@ -107,7 +107,9 @@ export default function Login(): JSX.Element {
             colorType={'primary'}
             onClick={handlerLogin}
             disabled={
-              !inputsValidations.email || loading || Boolean(!credentials.password)
+              !inputsValidations.email ||
+              loading ||
+              Boolean(!credentials.password)
             }
           >
             {loading ? 'LOADING...' : 'SIGN IN'}

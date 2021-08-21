@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
-import Input from '../../components/Input/Input';
+import Input, { IInputChange } from '../../components/Input/Input';
 import LeftBanner from '../../components/LeftBanner/LeftBanner';
 import { SubTitle } from '../../components/Subtitle/Subtitle';
 import { Title } from '../../components/Title/Title';
@@ -34,12 +34,11 @@ export default function Signup(): JSX.Element {
   const dispatch = useDispatch();
   const { device } = useWindowSize();
 
-
   const changeNewUserValue = useCallback(
-    ({ currentTarget }: React.FormEvent<HTMLInputElement>): void => {
+    ({ value, id }: IInputChange): void => {
       dispatch(
         changeNewUser({
-          [currentTarget.id]: currentTarget.value,
+          [id]: value,
         })
       );
     },
@@ -126,9 +125,7 @@ export default function Signup(): JSX.Element {
               label='Repeat password'
               value={confirmPassword}
               id='confirmPassword'
-              onChange={({ currentTarget }) =>
-                setConfirmPassword(currentTarget.value)
-              }
+              onChange={({ value }) => setConfirmPassword(value)}
               type={'password'}
               checkInputIsValid={changeFormValidInputs}
               externalError={passwordsMatch}
@@ -146,7 +143,7 @@ export default function Signup(): JSX.Element {
             onClick={handleCreateUser}
             disabled={!formIsValid || loading}
           >
-            {loading ? 'LOADING...':'SIGN UP'}
+            {loading ? 'LOADING...' : 'SIGN UP'}
           </Button>
         </SignupContent>
       </SignupContainer>

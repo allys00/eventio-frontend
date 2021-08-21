@@ -1,4 +1,6 @@
+import Store from '../../config/Store/store.config';
 import { ENV } from '../../enviroment/enviroment';
+import { doLogout } from '../../pages/Login/Store/actions';
 import AuthApi from '../auth/auth';
 import Storage, { StorageKeys } from '../storage/Storage';
 
@@ -32,6 +34,9 @@ async function handleError(
     if (error === 'User.NotAuthenticated') {
       await refreshToken();
       return await originalFetch;
+    }
+    if(error === 'Auth.InvalidToken'){
+      Store.dispatch(doLogout())
     }
   }
   return response;
