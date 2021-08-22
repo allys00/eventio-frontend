@@ -1,8 +1,11 @@
+import dayjs from 'dayjs';
 import { all, call, put, select, takeEvery } from 'redux-saga/effects';
 import { IStore } from '../../../config/Store/mainReducer';
-import { IEvent } from '../../../models/event.model';
+import { IEvent, IEventBase } from '../../../models/event.model';
 import EventsApi from '../../../services/events/events';
 import {
+  changeEventEditModal,
+  changeEventLoading,
   changeEvents,
   changeEventsLoading,
   changeLoadingEventAction,
@@ -54,18 +57,27 @@ export function* unAttendAnEvent({ payload: eventId }: any) {
   }
 }
 
-export default function* LoginSaga() {
-  const getAllEventsSaga: unknown = yield takeEvery(
-    EVENTS_ACTIONS.ASYNC_GET_ALL_EVENTS,
-    getAllEvents
-  );
-  const attendAnEventSaga: unknown = yield takeEvery(
-    EVENTS_ACTIONS.ASYNC_ATTEND_AN_EVENT,
-    attendAnEvent
-  );
-  const unAttendAnEventSaga: unknown = yield takeEvery(
-    EVENTS_ACTIONS.ASYNC_UNATTEND_AN_EVENT,
-    unAttendAnEvent
-  );
-  yield all([getAllEventsSaga, attendAnEventSaga, unAttendAnEventSaga]);
+export function* createEvent({ payload: event }: any) {
+  try {
+    yield put(changeEventLoading(true));
+    const { date, time, ...rest } = event;
+    const startsAt = dayjs(`${date} ${time}`, 'MM/DD/YYYY HH:mm').toISOString();
+    const newEvent: IEventBase = { ...rest, startsAt };
+    yield call(EventsApi.createEvent, newEvent);
+    yield put(changeEventEditModal(false));
+    yield call(getAllEvents);
+  } catch (error) {
+    console.error(error);
+  } finally {
+    yield put(changeEventLoading(false));
+  }
+}
+
+export default function* EventsSaga() {
+  yield all([
+    yield takeEvery(EVENTS_ACTIONS.ASYNC_GET_ALL_EVENTS, getAllEvents),
+    yield takeEvery(EVENTS_ACTIONS.ASYNC_ATTEND_AN_EVENT, attendAnEvent),
+    yield takeEvery(EVENTS_ACTIONS.ASYNC_UNATTEND_AN_EVENT, unAttendAnEvent),
+    yield takeEvery(EVENTS_ACTIONS.ASYNC_CREATE_EVENT, createEvent),
+  ] as unknown[]);
 }

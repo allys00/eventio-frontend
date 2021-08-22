@@ -52,8 +52,8 @@ function EventCard({
 
   const sizeCard = useMemo(() => {
     if (inlineMode && device === ENUMDevices.isDesktop) return '100%';
-    if (width > 966) return 'calc(33.3% - 80px)';
-    else if (width > 660) return 'calc(50% - 72px)';
+    if (width > 966) return 'calc(32.3% - 64px)';
+    else if (width > 660) return 'calc(49% - 64px)';
     else return '100%';
   }, [width]);
 

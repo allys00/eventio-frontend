@@ -9,7 +9,7 @@ import Events from './Events/Events';
 import Storage, { StorageKeys } from '../services/storage/Storage';
 import { useDispatch } from 'react-redux';
 import { changeUserLogged } from './Login/Store/actions';
-import EditEvent from './EditEvent/EditEvent';
+import EditEvent from './Events/EditEvent/EditEvent';
 
 export default function MainRouter(): JSX.Element {
   const [loading, setLoading] = useState(true);

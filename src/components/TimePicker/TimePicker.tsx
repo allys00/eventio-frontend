@@ -1,21 +1,8 @@
 import React from 'react';
-import TimePickerComponent from 'react-time-picker';
-import { TimePickerWrapper, Placeholder } from './TimePickerStyle';
+import Input, { IInputProps } from '../Input/Input';
 
-interface IProps {
-  placeholder?: string;
-}
-
-function TimePicker({ placeholder }: IProps) {
-  return (
-    <TimePickerWrapper>
-      <Placeholder> {placeholder}</Placeholder>
-      <TimePickerComponent
-      clearIcon={null}
-      clockIcon={null}
-      value={''}  />
-    </TimePickerWrapper>
-  );
+function TimePicker(props: IInputProps) {
+  return <Input {...props} mask='99:99' validationType={'time'} />;
 }
 
 export default TimePicker;

@@ -10,6 +10,7 @@
     "react-alert-template-basic": "^1.0.2",
     "react-date-picker": "^8.3.2",
     "react-dom": "^17.0.2",
+    "react-input-mask": "^2.0.4",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-router-redux": "^4.0.8",
@@ -47,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-input-mask": "1.2.1",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",

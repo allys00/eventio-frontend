@@ -8,37 +8,48 @@ import { EventList } from './Components/EventList/EventListStyle';
 import EventsHeader, {
   ENUMFilterType,
 } from './Components/EventsHeader/EventsHeader';
-import { changeEventsFilter, getAllEvents } from './Store/actions';
+import {
+  changeEventEditModal,
+  changeEventsFilter,
+  getAllEvents,
+} from './Store/actions';
 import dayjs from 'dayjs';
 import FloatButton from '../../components/FloatButton/FloatButton';
 import IconPlus from '../../components/Icon/IconPlus';
 import { theme } from '../../styles/theme';
-import { useHistory } from 'react-router-dom';
-import { pages } from '../../utils/constants/pages';
-import EditEvent from '../EditEvent/EditEvent';
+import EditEvent from './EditEvent/EditEvent';
 import Modal from '../../components/Modal/Modal';
 
 function Events() {
-  const { events, userId, loading, filterType, eventIdIsLoading } = useSelector(
-    ({ events, login }: IStore) => ({
-      userId: login.userLogged.id,
-      events: events.events,
-      loading: events.loading,
-      eventIdIsLoading: events.eventIdIsLoading,
-      filterType: events.filterType,
-    })
-  );
+  const {
+    events,
+    userId,
+    loading,
+    filterType,
+    eventIdIsLoading,
+    eventEditModal,
+  } = useSelector(({ events, login }: IStore) => ({
+    userId: login.userLogged.id,
+    events: events.events,
+    loading: events.loading,
+    eventIdIsLoading: events.eventIdIsLoading,
+    filterType: events.filterType,
+    eventEditModal: events.eventEditModal,
+  }));
 
   const [inlineMode, setInlineMode] = useState(false);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   useEffect(() => {
     dispatch(getAllEvents());
   }, []);
 
   const goToNewEvent = useCallback(() => {
-    history.push(pages.NEW_EVENT);
+    dispatch(changeEventEditModal(true));
+  }, []);
+
+  const closeModal = useCallback(() => {
+    dispatch(changeEventEditModal(false));
   }, []);
 
   function changeInlineMode(value: boolean) {
@@ -106,9 +117,11 @@ function Events() {
         )}
       />
 
-      <Modal>
-        <EditEvent />
-      </Modal>
+      {eventEditModal && (
+        <Modal onClose={closeModal}>
+          <EditEvent />
+        </Modal>
+      )}
     </Container>
   );
 }

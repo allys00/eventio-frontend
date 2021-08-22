@@ -1,11 +1,9 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import InputMask from 'react-input-mask';
 import { theme } from '../../styles/theme';
-import DatePicker from '../DatePicker/DatePicker';
 import IconEye from '../Icon/IconEye';
-import TimePicker from '../TimePicker/TimePicker';
 import {
   Label,
-  InputWrapper,
   InputContainer,
   EyeButton,
   HidePassword,
@@ -18,12 +16,13 @@ export interface IInputChange {
   value: any;
 }
 
-interface IProps {
+export interface IInputProps {
   label?: string;
-  value: string;
-  id?: string;
+  value: any;
+  id: string;
   onChange: (event: IInputChange) => void;
   checkInputIsValid?: (isValid: boolean, id: string) => void;
+  onBlur?: (value: string) => void;
   type?: string;
   noShowButton?: boolean;
   hadError?: boolean;
@@ -32,8 +31,10 @@ interface IProps {
     hasError?: boolean;
     errorMessage?: string;
   };
-  validationType?: 'email';
+  validationType?: 'email' | 'date' | 'time';
   placeholder?: string;
+  mask?: string;
+  maskChar?: string | null;
 }
 
 function Input({
@@ -41,6 +42,7 @@ function Input({
   value,
   onChange,
   checkInputIsValid,
+  onBlur,
   type,
   noShowButton,
   required,
@@ -48,7 +50,9 @@ function Input({
   id,
   placeholder,
   validationType,
-}: IProps): JSX.Element {
+  mask = '',
+  maskChar = null,
+}: IInputProps): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
   const [wasFocused, setWasFocused] = useState(false);
@@ -63,7 +67,7 @@ function Input({
       };
     }
     if (validationType && inputsValidations[validationType] && value) {
-      const errorMessage = inputsValidations[validationType](value);
+      const errorMessage = inputsValidations[validationType](value as string);
       return {
         hasError: Boolean(errorMessage),
         errorMessage,
@@ -94,58 +98,41 @@ function Input({
     return type || 'text';
   }, [type, showPassword]);
 
-  const handleBlur = useCallback(() => {
-    setHasFocus(false);
-    if (!wasFocused) {
-      setWasFocused(true);
-    }
-  }, [wasFocused]);
+  const handleBlur = useCallback(
+    (event: any) => {
+      setHasFocus(false);
+      if (!wasFocused) {
+        setWasFocused(true);
+      }
+      if (onBlur) {
+        onBlur(event.currentTarget.value);
+      }
+    },
+    [wasFocused]
+  );
 
   return (
     <InputContainer>
       {label && <Label goToTop={goToTop}>{label}</Label>}
-
-      {type === 'date' && (
-        <DatePicker
-          placeholder={placeholder}
-          value={value}
-          onChange={(value) =>
-            onChange({
-              id: id || '',
-              value,
-            })
-          }
-          onBlur={handleBlur}
-          onFocus={() => setHasFocus(true)}
-          className={`${
-            (hasError && wasFocused) || externalError?.hasError
-              ? 'hadError'
-              : ''
-          }`}
-        />
-      )}
-      {type === 'time' && <TimePicker placeholder={placeholder} />}
-      {type !== 'date' && type !== 'time' && (
-        <InputWrapper
-          id={id}
-          value={value}
-          placeholder={placeholder}
-          onChange={({ currentTarget }) =>
-            onChange({
-              id: currentTarget.id,
-              value: currentTarget.value,
-            })
-          }
-          onBlur={handleBlur}
-          onFocus={() => setHasFocus(true)}
-          type={inputType}
-          className={`${
-            (hasError && wasFocused) || externalError?.hasError
-              ? 'hadError'
-              : ''
-          }`}
-        />
-      )}
+      <InputMask
+        mask={mask}
+        maskChar={maskChar}
+        id={id}
+        value={value || ''}
+        placeholder={placeholder}
+        onChange={({ currentTarget }) =>
+          onChange({
+            id: currentTarget.id,
+            value: currentTarget.value,
+          })
+        }
+        onBlur={handleBlur}
+        onFocus={() => setHasFocus(true)}
+        type={inputType}
+        className={`inputMask ${
+          (hasError && wasFocused) || externalError?.hasError ? 'hadError' : ''
+        }`}
+      />
 
       {type === 'password' && !noShowButton && (
         <EyeButton onClick={() => setShowPassword(!showPassword)}>

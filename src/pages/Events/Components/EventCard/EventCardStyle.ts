@@ -62,6 +62,7 @@ export const Card = styled.div<ICardProps>`
   width: ${({ width }) => width};
   max-width: calc(100% - 64px);
   margin-bottom: 16px;
+  margin-right: 1%;
 
   ${Title} {
     white-space: nowrap;

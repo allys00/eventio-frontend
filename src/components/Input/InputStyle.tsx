@@ -11,6 +11,24 @@ export const InputContainer = styled.div`
   justify-content: center;
   position: relative;
   margin-bottom: 30px;
+  .inputMask {
+    border: 0;
+    border-bottom: 2px solid #dae1e7;
+    outline: none;
+    padding: 8px 0;
+    z-index: 1;
+    background: transparent;
+    color: ${({ theme }) => theme.color.primary};
+    font-size: 18px;
+
+    &::placeholder {
+      color: #c9ced3;
+    }
+
+    &.hadError {
+      border-bottom-color: ${({ theme }) => theme.actions.secondary.background};
+    }
+  }
 `;
 
 export const Label = styled.label<ILabelProps>`
@@ -24,25 +42,6 @@ export const Label = styled.label<ILabelProps>`
     css`
       top: -30px;
     `};
-`;
-
-export const InputWrapper = styled.input`
-  border: 0;
-  border-bottom: 2px solid #dae1e7;
-  outline: none;
-  padding: 8px 0;
-  z-index: 1;
-  background: transparent;
-  color: ${({ theme }) => theme.color.primary};
-  font-size: 18px;
-
-  &::placeholder {
-    color: #c9ced3;
-  }
-
-  &.hadError {
-    border-bottom-color: ${({ theme }) => theme.actions.secondary.background};
-  }
 `;
 
 export const EyeButton = styled.div`
