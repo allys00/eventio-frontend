@@ -3,6 +3,7 @@ import { styled } from '../../styles/theme';
 
 interface ILabelProps {
   goToTop: boolean;
+  htmlFor?: string
 }
 
 export const InputContainer = styled.div`

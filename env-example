@@ -1,0 +1,4 @@
+Create  a File .env at the root of the project
+
+REACT_APP_API_KEY=<API_KEY>
+REACT_APP_API_BASE=<BASE_URL>

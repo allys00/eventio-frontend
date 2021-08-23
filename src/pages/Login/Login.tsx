@@ -92,6 +92,7 @@ export default function Login(): JSX.Element {
               label='Password'
               value={credentials.password}
               id='password'
+              onEnterPress={handlerLogin}
               onChange={handlerChangeCredentials}
               type={'password'}
               externalError={{ hasError: Boolean(loginError) }}

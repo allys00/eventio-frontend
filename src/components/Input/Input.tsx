@@ -23,6 +23,7 @@ export interface IInputProps {
   onChange: (event: IInputChange) => void;
   checkInputIsValid?: (isValid: boolean, id: string) => void;
   onBlur?: (value: string) => void;
+  onEnterPress?: () => void;
   type?: string;
   noShowButton?: boolean;
   hadError?: boolean;
@@ -52,6 +53,7 @@ function Input({
   validationType,
   mask = '',
   maskChar = null,
+  onEnterPress,
 }: IInputProps): JSX.Element {
   const [showPassword, setShowPassword] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
@@ -111,9 +113,15 @@ function Input({
     [wasFocused]
   );
 
+  const handleKeyPress = useCallback((event) => {
+    if(onEnterPress && event.code === 'Enter'){
+      onEnterPress();
+    }
+  }, [onEnterPress])
+
   return (
     <InputContainer>
-      {label && <Label goToTop={goToTop}>{label}</Label>}
+      {label && <Label htmlFor={id} goToTop={goToTop}>{label}</Label>}
       <InputMask
         mask={mask}
         maskChar={maskChar}
@@ -126,6 +134,7 @@ function Input({
             value: currentTarget.value,
           })
         }
+        onKeyPress={handleKeyPress}
         onBlur={handleBlur}
         onFocus={() => setHasFocus(true)}
         type={inputType}

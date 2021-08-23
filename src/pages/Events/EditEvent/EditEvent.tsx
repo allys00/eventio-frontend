@@ -117,7 +117,7 @@ function EditEvent() {
           onClick={handleCreateEvent}
           disabled={!formIsValid || eventEditLoading}
         >
-          {eventEditLoading ? 'Creating event' : 'Create new event'}
+          {eventEditLoading ? 'CREATING EVENT' : 'CREATE NEW EVENT '}
         </Button>
       </EditEventCard>
     </EditEventContainer>

@@ -44,7 +44,7 @@ export const ActionItem = styled.span`
   }
 `;
 
-export const EventsFilterMobile = styled.p`
+export const EventsFilterMobile = styled.div`
   color: ${({ theme }) => theme.color.dark_grey};
   margin: 0;
   text-decoration: uppercase;

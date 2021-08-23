@@ -29,6 +29,7 @@ export default function MainRouter(): JSX.Element {
   return (
     <Router history={history}>
       <Switch>
+        <Redirect path="/" to={pages.EVENTS} exact />
         <PublicRouter path={pages.LOGIN} component={Login} />
         <PublicRouter path={pages.SIGNUP} component={Signup} />
         <ProtectRouter path={pages.EVENTS} component={Events} />
