@@ -120,6 +120,7 @@ export const InlineCard = styled.div`
 
   ${Title} {
     line-height: unset;
+    font-size: 18px;
   }
 
   ${SubTitle} {

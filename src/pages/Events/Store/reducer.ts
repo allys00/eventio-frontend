@@ -14,6 +14,7 @@ export enum EVENTS_ACTIONS {
   CHANGE_LOADING_EDIT_EVENT = '@EVENTS_CHANGE_LOADING_EDIT_EVENT',
   CHANGE_EVENT = '@EVENTS_CHANGE_EVENT',
   CHANGE_EVENT_EDIT_MODAL = '@EVENTS_CHANGE_EVENT_EDIT_MODAL',
+  CHANGE_EVENT_EDIT_ERROR = '@EVENTS_CHANGE_EVENT_EDIT_ERROR',
 }
 
 const INITIAL_STATE = {
@@ -30,6 +31,7 @@ const INITIAL_STATE = {
     capacity: 0,
   },
   eventEditModal: false,
+  eventEditError: '',
 };
 
 export type IEventState = typeof INITIAL_STATE;
@@ -58,6 +60,9 @@ export default (
 
     case EVENTS_ACTIONS.CHANGE_EVENT_EDIT_MODAL:
       return { ...state, eventEditModal: payload.eventEditModal };
+
+    case EVENTS_ACTIONS.CHANGE_EVENT_EDIT_ERROR:
+      return { ...state, eventEditError: payload.eventEditError };
 
     case EVENTS_ACTIONS.CHANGE_EVENT:
       return {

@@ -50,6 +50,11 @@ export const changeEventEditModal = (eventEditModal: boolean) => ({
   payload: { eventEditModal },
 });
 
+export const changeEventEditError = (eventEditError: string) => ({
+  type: EVENTS_ACTIONS.CHANGE_EVENT_EDIT_ERROR,
+  payload: { eventEditError },
+});
+
 export const createEvent = (event: IEditEvent) => ({
   type: EVENTS_ACTIONS.ASYNC_CREATE_EVENT,
   payload: event,

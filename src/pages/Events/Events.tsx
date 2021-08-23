@@ -19,6 +19,7 @@ import IconPlus from '../../components/Icon/IconPlus';
 import { theme } from '../../styles/theme';
 import EditEvent from './EditEvent/EditEvent';
 import Modal from '../../components/Modal/Modal';
+import Loading from '../../components/Loading/Loading';
 
 function Events() {
   const {
@@ -86,7 +87,7 @@ function Events() {
           onChangeInlineMode={changeInlineMode}
         />
         {loading ? (
-          <h2>Loading...</h2>
+          <Loading />
         ) : (
           <EventList>
             {eventsToShow.map((event) => (

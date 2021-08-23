@@ -30,14 +30,15 @@ async function handleError(
 ) {
   if (!response.ok) {
     const clone = response.clone();
-    const { error } = await clone.json();
-    if (error === 'User.NotAuthenticated') {
+    const error = await clone.json();
+    if (error.error === 'User.NotAuthenticated') {
       await refreshToken();
       return await originalFetch;
     }
-    if(error === 'Auth.InvalidToken'){
-      Store.dispatch(doLogout())
+    if (error.error === 'Auth.InvalidToken') {
+      Store.dispatch(doLogout());
     }
+    return Promise.reject(error);
   }
   return response;
 }

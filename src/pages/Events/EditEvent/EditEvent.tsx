@@ -7,6 +7,7 @@ import { SubTitle } from '../../../components/Subtitle/Subtitle';
 import TimePicker from '../../../components/TimePicker/TimePicker';
 import { Title } from '../../../components/Title/Title';
 import { IStore } from '../../../config/Store/mainReducer';
+import { theme } from '../../../styles/theme';
 import { changeEvent, createEvent } from '../Store/actions';
 import {
   EditEventCard,
@@ -15,10 +16,13 @@ import {
 } from './EditEventStyle';
 
 function EditEvent() {
-  const { eventEdit, eventEditLoading } = useSelector(({ events }: IStore) => ({
-    eventEdit: events.eventEdit,
-    eventEditLoading: events.eventEditLoading,
-  }));
+  const { eventEdit, eventEditLoading, eventEditError } = useSelector(
+    ({ events }: IStore) => ({
+      eventEdit: events.eventEdit,
+      eventEditLoading: events.eventEditLoading,
+      eventEditError: events.eventEditError,
+    })
+  );
   const dispatch = useDispatch();
   const [formValidInputs, setFormValidInputs] = useState({
     title: false,
@@ -58,7 +62,13 @@ function EditEvent() {
     <EditEventContainer>
       <EditEventCard>
         <Title fontSize={28}>Create new event</Title>
-        <SubTitle>Enter details below.</SubTitle>
+        {eventEditError ? (
+          <SubTitle fontSize={18} color={theme.actions.secondary.background}>
+            {eventEditError}
+          </SubTitle>
+        ) : (
+          <SubTitle fontSize={18}>Enter your details below</SubTitle>
+        )}
         <EditEventForm>
           <Input
             placeholder='Title'

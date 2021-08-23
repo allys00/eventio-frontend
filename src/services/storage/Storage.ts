@@ -26,14 +26,14 @@ const Storage = {
     try {
       localStorage.removeItem(key);
     } catch (e) {
-      console.log(`Error to remove ${key} from storage`);
+      console.error(`Error to remove ${key} from storage`);
     }
   },
   clear: () => {
     try {
       localStorage.clear();
     } catch (e) {
-      console.log(`Error to clear storage`);
+      console.error(`Error to clear storage`);
     }
   }
 };

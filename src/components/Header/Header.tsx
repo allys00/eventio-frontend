@@ -26,7 +26,6 @@ function Header() {
 
       <Dropdown
         options={[
-          { label: 'My Profile', onClick: () => console.log('MyProfile') },
           { label: 'Logout', onClick: () => dispatch(doLogout()) },
         ]}
       >

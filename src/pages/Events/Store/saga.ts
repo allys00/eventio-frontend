@@ -4,6 +4,7 @@ import { IStore } from '../../../config/Store/mainReducer';
 import { IEvent, IEventBase } from '../../../models/event.model';
 import EventsApi from '../../../services/events/events';
 import {
+  changeEventEditError,
   changeEventEditModal,
   changeEventLoading,
   changeEvents,
@@ -67,6 +68,11 @@ export function* createEvent({ payload: event }: any) {
     yield put(changeEventEditModal(false));
     yield call(getAllEvents);
   } catch (error) {
+    if (error.errors && error.errors.startsAt) {
+      if (error.errors.startsAt.kind === 'Future') {
+        yield put(changeEventEditError('Date must be in the future'));
+      }
+    }
     console.error(error);
   } finally {
     yield put(changeEventLoading(false));
