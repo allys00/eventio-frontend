@@ -33,7 +33,7 @@ export function* doLogin({ payload: credentials }: any) {
   }
 }
 
-function* doLogout() {
+export function* doLogout() {
   try {
     yield call(Storage.clear);
     yield call(history.push, pages.LOGIN);

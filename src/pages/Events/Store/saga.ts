@@ -80,10 +80,27 @@ export function* createEvent({ payload: event }: any) {
 }
 
 export default function* EventsSaga() {
+  const getAllEventsSaga: unknown = yield takeEvery(
+    EVENTS_ACTIONS.ASYNC_GET_ALL_EVENTS,
+    getAllEvents
+  );
+  const attendAnEventSaga: unknown = yield takeEvery(
+    EVENTS_ACTIONS.ASYNC_ATTEND_AN_EVENT,
+    attendAnEvent
+  );
+  const unAttendAnEventSaga: unknown = yield takeEvery(
+    EVENTS_ACTIONS.ASYNC_UNATTEND_AN_EVENT,
+    unAttendAnEvent
+  );
+  const createEventSaga: unknown = yield takeEvery(
+    EVENTS_ACTIONS.ASYNC_CREATE_EVENT,
+    createEvent
+  );
+
   yield all([
-    yield takeEvery(EVENTS_ACTIONS.ASYNC_GET_ALL_EVENTS, getAllEvents),
-    yield takeEvery(EVENTS_ACTIONS.ASYNC_ATTEND_AN_EVENT, attendAnEvent),
-    yield takeEvery(EVENTS_ACTIONS.ASYNC_UNATTEND_AN_EVENT, unAttendAnEvent),
-    yield takeEvery(EVENTS_ACTIONS.ASYNC_CREATE_EVENT, createEvent),
+    getAllEventsSaga,
+    attendAnEventSaga,
+    unAttendAnEventSaga,
+    createEventSaga,
   ] as unknown[]);
 }
