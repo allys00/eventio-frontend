@@ -1,5 +1,5 @@
 <p align="center"> 
-  <img src="./src/assets/img/eventio-logo" alt="Eventio Logo" width="80px" height="80px">
+  <img src="./src/assets/img/eventio-logo.png" alt="Eventio Logo" width="80px" height="80px">
 </p>
 <h1 align="center"> Eventio </h1>
 
