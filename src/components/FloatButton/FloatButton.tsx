@@ -9,8 +9,8 @@ interface IProps extends IWrapperProps {
 
 interface IWrapperProps {
   background: string;
-  width?: string;
-  height?: string;
+  width?: number;
+  height?: number;
 }
 
 const FloatButtonWrapper = styled.button<IWrapperProps>`
@@ -19,8 +19,8 @@ const FloatButtonWrapper = styled.button<IWrapperProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ width }) => width || '50px'};
-  height: ${({ height }) => height || '50px'};
+  width: ${({ width }) => width || 50}px;
+  height: ${({ height }) => height || 50}px;
   border-radius: 50%;
   outline: none;
   border: none;

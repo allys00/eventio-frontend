@@ -3,5 +3,6 @@ export enum pages {
   EVENTS = '/events',
   SIGNUP = '/signup',
   NEW_EVENT = '/new-event',
-  NOT_FOUND = '/not-found'
+  NOT_FOUND = '/not-found',
+  INTERNAL_ERROR = '/error'
 }
